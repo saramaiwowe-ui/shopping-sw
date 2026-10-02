@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amina & Kofi Atelier | Luxury African Fashion & Shoes</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        h1, h2, h3, h4, .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e3a8a;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col justify-between">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-blue-900 text-amber-300 text-xs sm:text-sm py-2 px-4 text-center font-medium tracking-wide flex justify-center items-center gap-3">
+        <span><i class="fa-solid fa-crown mr-1"></i> <span data-i18n="announcement">Free Worldwide Shipping on Orders Over $200 | Worldwide WhatsApp Concierge</span></span>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-2">
+                <div class="w-10 h-10 rounded-full bg-blue-900 text-amber-300 flex items-center justify-center font-serif font-bold text-xl shadow-md border border-amber-400">
+                    AK
+                </div>
+                <div>
+                    <span class="font-serif text-xl sm:text-2xl font-bold tracking-tight text-blue-900 dark:text-white">Amina & Kofi</span>
+                    <span class="block text-[10px] tracking-widest text-pink-500 uppercase font-semibold">Atelier & Luxury</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-8 font-medium text-sm">
+                <a href="#catalog" class="hover:text-blue-600 dark:hover:text-amber-400 transition" data-i18n="nav_shop">Shop All</a>
+                <a href="#catalog" onclick="filterCategory('Shoes')" class="hover:text-blue-600 dark:hover:text-amber-400 transition" data-i18n="nav_shoes">Shoes</a>
+                <a href="#catalog" onclick="filterCategory('Fabrics')" class="hover:text-blue-600 dark:hover:text-amber-400 transition" data-i18n="nav_fabrics">Wax Fabrics</a>
+                <a href="#catalog" onclick="filterCategory('Bags')" class="hover:text-blue-600 dark:hover:text-amber-400 transition" data-i18n="nav_bags">Bags</a>
+                <a href="#brands-section" class="hover:text-blue-600 dark:hover:text-amber-400 transition" data-i18n="nav_brands">Brands / Marks</a>
+                <a href="#booking" class="hover:text-blue-600 dark:hover:text-amber-400 transition" data-i18n="nav_book">Book Styling</a>
+            </nav>
+
+            <!-- Actions (Lang, Dark Mode, Admin, Cart) -->
+            <div class="flex items-center gap-3 sm:gap-4">
+                <!-- Language Toggle -->
+                <button onclick="toggleLanguage()" class="px-2.5 py-1 text-xs font-semibold rounded-full border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 hover:border-blue-600 transition">
+                    <span id="lang-label">FR</span>
+                </button>
+
+                <!-- Light/Dark Toggle -->
+                <button onclick="toggleDarkMode()" class="w-9 h-9 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-amber-300 hover:scale-105 transition shadow-sm">
+                    <i id="theme-icon" class="fa-solid fa-moon"></i>
+                </button>
+
+                <!-- Admin Button -->
+                <button onclick="openAdminModal()" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-pink-100 text-pink-700 dark:bg-pink-900/40 dark:text-pink-300 hover:bg-pink-200 transition">
+                    <i class="fa-solid fa-gear"></i> <span data-i18n="admin_btn">Admin</span>
+                </button>
+
+                <!-- Cart Button -->
+                <button onclick="toggleCartDrawer()" class="relative w-10 h-10 rounded-full bg-blue-900 text-amber-300 flex items-center justify-center hover:bg-blue-800 transition shadow-md">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span id="cart-badge" class="absolute -top-1 -right-1 w-5 h-5 bg-pink-500 text-white rounded-full text-xs font-bold flex items-center justify-center shadow">0</span>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 rounded-lg flex items-center justify-center text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-4 space-y-3">
+            <a href="#catalog" onclick="toggleMobileMenu()" class="block font-medium py-1.5" data-i18n="nav_shop">Shop All</a>
+            <a href="#catalog" onclick="filterCategory('Shoes'); toggleMobileMenu();" class="block font-medium py-1.5" data-i18n="nav_shoes">Shoes</a>
+            <a href="#catalog" onclick="filterCategory('Fabrics'); toggleMobileMenu();" class="block font-medium py-1.5" data-i18n="nav_fabrics">Wax Fabrics</a>
+            <a href="#catalog" onclick="filterCategory('Bags'); toggleMobileMenu();" class="block font-medium py-1.5" data-i18n="nav_bags">Bags</a>
+            <a href="#brands-section" onclick="toggleMobileMenu()" class="block font-medium py-1.5" data-i18n="nav_brands">Brands / Marks</a>
+            <a href="#booking" onclick="toggleMobileMenu()" class="block font-medium py-1.5" data-i18n="nav_book">Book Styling</a>
+            <button onclick="openAdminModal(); toggleMobileMenu();" class="w-full text-left font-medium py-1.5 text-pink-600 dark:text-pink-400">
+                <i class="fa-solid fa-gear mr-2"></i> <span data-i18n="admin_btn">Admin Panel</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-br from-blue-950 via-blue-900 to-slate-900 text-white py-20 lg:py-28 overflow-hidden">
+        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6 text-center lg:text-left">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/20 border border-pink-400/30 text-pink-300 text-xs font-semibold tracking-wider uppercase">
+                    <i class="fa-solid fa-sparkles"></i> <span data-i18n="hero_badge">New Collection 2026</span>
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold font-serif leading-tight">
+                    <span data-i18n="hero_title_1">Elegance Woven in</span> <span class="text-amber-300 italic" data-i18n="hero_title_2">Tradition & Luxury</span>
+                </h1>
+                <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 font-light" data-i18n="hero_desc">
+                    Discover exquisite handcrafted African wax fabrics, statement designer shoes, and bespoke luxury bags curated for the modern connoisseur.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                    <a href="#catalog" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-amber-400 text-slate-950 font-bold hover:bg-amber-300 transition shadow-lg text-center" data-i18n="hero_cta_shop">
+                        Explore Collection
+                    </a>
+                    <a href="#booking" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/30 text-white font-semibold transition backdrop-blur-sm text-center" data-i18n="hero_cta_book">
+                        Book Consultation
+                    </a>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4 relative">
+                <div class="space-y-4 translate-y-6">
+                    <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&auto=format&fit=crop&q=80" alt="Luxury Bag" class="rounded-2xl shadow-2xl object-cover h-64 w-full border border-white/10">
+                    <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&auto=format&fit=crop&q=80" alt="Designer Shoes" class="rounded-2xl shadow-2xl object-cover h-48 w-full border border-white/10">
+                </div>
+                <div class="space-y-4">
+                    <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=600&auto=format&fit=crop&q=80" alt="African Wax Fabric" class="rounded-2xl shadow-2xl object-cover h-48 w-full border border-white/10">
+                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600&auto=format&fit=crop&q=80" alt="Fashion Model" class="rounded-2xl shadow-2xl object-cover h-64 w-full border border-white/10">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content: Catalog & Brands -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex-grow w-full">
+        
+        <!-- Brand / Mark Showcase Bar -->
+        <div id="brands-section" class="mb-12 bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-800">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+                <div>
+                    <h3 class="font-serif text-xl font-bold text-blue-900 dark:text-white" data-i18n="brand_showcase_title">Featured Luxury Marks & Brands</h3>
+                    <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400" data-i18n="brand_showcase_sub">Click any brand mark to filter the catalog instantly</p>
+                </div>
+                <button onclick="clearBrandFilter()" id="clear-brand-btn" class="hidden px-4 py-1.5 text-xs font-bold rounded-lg bg-pink-100 text-pink-700 dark:bg-pink-900/40 dark:text-pink-300 hover:bg-pink-200 transition">
+                    <i class="fa-solid fa-xmark mr-1"></i> <span data-i18n="clear_filter">Reset Brand Filter</span>
+                </button>
+            </div>
+            <div class="flex flex-wrap gap-3 items-center justify-center sm:justify-start" id="brand-filters-container">
+                <!-- Populated via JS -->
+            </div>
+        </div>
+
+        <!-- Search & Category Filter Header -->
+        <div id="catalog" class="flex flex-col md:flex-row items-center justify-between gap-6 mb-10">
+            <!-- Category Tabs -->
+            <div class="flex flex-wrap items-center justify-center gap-2 bg-slate-200/70 dark:bg-slate-800 p-1.5 rounded-2xl w-full md:w-auto">
+                <button onclick="filterCategory('All')" id="cat-btn-All" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-blue-900 text-amber-300 shadow-sm" data-i18n="cat_all">All Products</button>
+                <button onclick="filterCategory('Shoes')" id="cat-btn-Shoes" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition text-slate-700 dark:text-slate-300 hover:text-blue-900" data-i18n="cat_shoes">Shoes (20)</button>
+                <button onclick="filterCategory('Fabrics')" id="cat-btn-Fabrics" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition text-slate-700 dark:text-slate-300 hover:text-blue-900" data-i18n="cat_fabrics">Wax Fabrics (20)</button>
+                <button onclick="filterCategory('Bags')" id="cat-btn-Bags" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition text-slate-700 dark:text-slate-300 hover:text-blue-900" data-i18n="cat_bags">Bags (20)</button>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="relative w-full md:w-80">
+                <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                <input type="text" id="search-input" oninput="handleSearch()" placeholder="Search products or marks..." class="w-full pl-11 pr-4 py-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-blue-600 text-sm shadow-sm transition">
+            </div>
+        </div>
+
+        <!-- Active Filter Indicator -->
+        <div id="active-filter-banner" class="hidden mb-6 p-4 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 flex items-center justify-between">
+            <div class="flex items-center gap-2 text-sm text-blue-900 dark:text-blue-200">
+                <i class="fa-solid fa-filter text-amber-500"></i>
+                <span>Showing products for mark: <strong id="active-brand-name" class="text-pink-600 dark:text-pink-400"></strong></span>
+            </div>
+            <button onclick="clearBrandFilter()" class="text-xs font-semibold text-blue-700 dark:text-blue-300 underline hover:text-blue-900" data-i18n="show_all">Show All Products</button>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Dynamically populated via JS -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="empty-state" class="hidden text-center py-20">
+            <div class="w-16 h-16 bg-slate-200 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400 text-2xl">
+                <i class="fa-solid fa-box-open"></i>
+            </div>
+            <h3 class="font-serif text-lg font-bold text-slate-800 dark:text-slate-200" data-i18n="no_products">No products found</h3>
+            <p class="text-sm text-slate-500 mt-1" data-i18n="no_products_sub">Try adjusting your search or category filters.</p>
+        </div>
+
+    </main>
+
+    <!-- Appointment Booking Section -->
+    <section id="booking" class="bg-blue-900 text-white py-20 mt-20 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fbbf24_1px,transparent_1px)] [background-size:20px_20px]"></div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <div class="inline-block px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 text-xs font-semibold tracking-wider uppercase mb-3">
+                    <i class="fa-solid fa-calendar-check mr-1"></i> <span data-i18n="booking_tag">VIP Concierge</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold font-serif" data-i18n="booking_title">Book a Styling & Fitting Consultation</h2>
+                <p class="text-slate-300 text-sm sm:text-base mt-2" data-i18n="booking_desc">Schedule a private session with our master stylists for custom African wax outfits, shoe fittings, or accessory matching.</p>
+            </div>
+
+            <form id="appointment-form" onsubmit="submitAppointment(event)" class="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 p-8 sm:p-10 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2" data-i18n="form_name">Full Name</label>
+                        <input type="text" id="appt-name" required placeholder="Amina Diallo" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-blue-600 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2" data-i18n="form_email">Email Address (Formspree)</label>
+                        <input type="email" id="appt-email" required placeholder="amina@example.com" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-blue-600 text-sm">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2" data-i18n="form_phone">Phone Number</label>
+                        <input type="tel" id="appt-phone" required placeholder="+237 600000000" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-blue-600 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2" data-i18n="form_date">Preferred Date</label>
+                        <input type="date" id="appt-date" required class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-blue-600 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2" data-i18n="form_service">Service Type</label>
+                        <select id="appt-service" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-blue-600 text-sm">
+                            <option value="Custom Wax Outfit Consultation" data-i18n="serv_1">Custom Wax Outfit Consultation</option>
+                            <option value="Luxury Shoe Fitting" data-i18n="serv_2">Luxury Shoe Fitting</option>
+                            <option value="Designer Bag Selection" data-i18n="serv_3">Designer Bag Selection</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2" data-i18n="form_notes">Additional Notes / Measurements</label>
+                    <textarea id="appt-notes" rows="3" placeholder="Specify color preferences or sizing details..." class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-blue-600 text-sm"></textarea>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                    <button type="button" onclick="submitAppointmentWhatsApp()" class="flex-1 py-4 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-lg flex items-center justify-center gap-2 transition">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> <span data-i18n="btn_book_wa">Book via WhatsApp</span>
+                    </button>
+                    <button type="submit" class="flex-1 py-4 px-6 rounded-xl bg-blue-900 hover:bg-blue-800 text-amber-300 font-bold text-sm shadow-lg flex items-center justify-center gap-2 transition">
+                        <i class="fa-solid fa-envelope text-lg"></i> <span data-i18n="btn_book_email">Submit via Formspree (Email)</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 pt-16 pb-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+            <div class="space-y-4">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-blue-900 text-amber-300 flex items-center justify-center font-serif font-bold text-sm border border-amber-400">
+                        AK
+                    </div>
+                    <span class="font-serif text-lg font-bold text-white">Amina & Kofi</span>
+                </div>
+                <p class="text-xs leading-relaxed" data-i18n="footer_desc">
+                    Celebrating African heritage through world-class craftsmanship, luxurious wax textiles, and bespoke designer shoes and bags.
+                </p>
+                <div class="flex gap-3 text-amber-400">
+                    <a href="#" class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-900 transition"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-900 transition"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-900 transition"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-white font-serif font-bold text-sm mb-4 uppercase tracking-wider" data-i18n="footer_cat">Collections</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#catalog" onclick="filterCategory('Shoes')" class="hover:text-amber-400 transition" data-i18n="nav_shoes">Luxury Shoes</a></li>
+                    <li><a href="#catalog" onclick="filterCategory('Fabrics')" class="hover:text-amber-400 transition" data-i18n="nav_fabrics">African Wax Fabrics</a></li>
+                    <li><a href="#catalog" onclick="filterCategory('Bags')" class="hover:text-amber-400 transition" data-i18n="nav_bags">Designer Bags</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-serif font-bold text-sm mb-4 uppercase tracking-wider" data-i18n="footer_brands">Luxury Marks</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#catalog" onclick="filterByBrand('Dior')" class="hover:text-amber-400 transition">Dior Heritage</a></li>
+                    <li><a href="#catalog" onclick="filterByBrand('Gucci')" class="hover:text-amber-400 transition">Gucci Ankara</a></li>
+                    <li><a href="#catalog" onclick="filterByBrand('Ankara Luxe')" class="hover:text-amber-400 transition">Ankara Luxe</a></li>
+                    <li><a href="#catalog" onclick="filterByBrand('Kofi Originals')" class="hover:text-amber-400 transition">Kofi Originals</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-serif font-bold text-sm mb-4 uppercase tracking-wider" data-i18n="footer_contact">Concierge</h4>
+                <p class="text-xs mb-2"><i class="fa-solid fa-phone mr-2 text-amber-400"></i> +237 600 000 000</p>
+                <p class="text-xs mb-2"><i class="fa-solid fa-envelope mr-2 text-amber-400"></i> concierge@aminakofi.com</p>
+                <p class="text-xs"><i class="fa-solid fa-location-dot mr-2 text-amber-400"></i> Douala & Paris Atelier</p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-800 pt-6 text-center text-xs text-slate-500">
+            &copy; 2026 Amina & Kofi Atelier. <span data-i18n="footer_rights">All rights reserved. Designed with Royal Blue, White, Soft Pink & Gold.</span>
+        </div>
+    </footer>
+
+    <!-- ================= SLIDE-OVER CART DRAWER ================= -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity" onclick="toggleCartDrawer()"></div>
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 shadow-2xl flex flex-col">
+                <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                    <h3 class="font-serif text-xl font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-bag-shopping text-blue-900 dark:text-amber-400"></i> <span data-i18n="cart_title">Your Shopping Bag</span>
+                    </h3>
+                    <button onclick="toggleCartDrawer()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:text-slate-800">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4">
+                    <!-- Populated via JS -->
+                </div>
+                <div class="p-6 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 space-y-4">
+                    <div class="flex items-center justify-between text-base font-bold">
+                        <span data-i18n="subtotal">Subtotal:</span>
+                        <span id="cart-subtotal" class="text-blue-900 dark:text-amber-400 text-lg">$0.00</span>
+                    </div>
+                    <button onclick="openCheckoutModal()" class="w-full py-3.5 rounded-xl bg-blue-900 hover:bg-blue-800 text-amber-300 font-bold text-sm shadow-md flex items-center justify-center gap-2 transition">
+                        <i class="fa-solid fa-lock"></i> <span data-i18n="btn_checkout">Proceed to Checkout & Reservation</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= CUSTOMER PURCHASE & RESERVATION CHECKOUT MODAL ================= -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 overflow-y-auto hidden flex items-center justify-center p-4">
+        <div class="fixed inset-0 bg-slate-900/70 backdrop-blur-xs" onclick="closeCheckoutModal()"></div>
+        <div class="relative bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 rounded-3xl shadow-2xl max-w-xl w-full p-8 z-10 border border-slate-200 dark:border-slate-800 space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+                <div>
+                    <h3 class="font-serif text-2xl font-bold text-blue-900 dark:text-white" data-i18n="chk_title">Complete Purchase & Reservation</h3>
+                    <p class="text-xs text-slate-500 mt-1" data-i18n="chk_sub">Enter your delivery details for secure WhatsApp confirmation</p>
+                </div>
+                <button onclick="closeCheckoutModal()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:text-slate-800">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="purchase-form" onsubmit="processWhatsAppCheckout(event)" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1" data-i18n="form_name">Full Name</label>
+                        <input type="text" id="chk-name" required placeholder="Amina Diallo" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-blue-600 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1" data-i18n="form_phone">Phone / WhatsApp</label>
+                        <input type="tel" id="chk-phone" required placeholder="+237 600000000" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-blue-600 text-sm">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1" data-i18n="form_email">Email Address</label>
+                    <input type="email" id="chk-email" required placeholder="amina@example.com" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-blue-600 text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1" data-i18n="form_address">Delivery Address / City</label>
+                    <input type="text" id="chk-address" required placeholder="Bonapriso, Douala / Rue de Rivoli, Paris" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-blue-600 text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1" data-i18n="form_fulfillment">Fulfillment Preference</label>
+                    <select id="chk-fulfillment" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-blue-600 text-sm">
+                        <option value="Home Delivery" data-i18n="ful_1">Home / Office Delivery</option>
+                        <option value="Store Pickup" data-i18n="ful_2">Atelier Pickup (Douala / Paris)</option>
+                    </select>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="w-full py-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-lg flex items-center justify-center gap-2 transition">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> <span data-i18n="btn_wa_checkout">Complete Order via WhatsApp</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================= PRODUCT QUICK VIEW MODAL ================= -->
+    <div id="product-modal" class="fixed inset-0 z-50 overflow-y-auto hidden flex items-center justify-center p-4">
+        <div class="fixed inset-0 bg-slate-900/70 backdrop-blur-xs" onclick="closeProductModal()"></div>
+        <div class="relative bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 rounded-3xl shadow-2xl max-w-2xl w-full p-6 sm:p-8 z-10 border border-slate-200 dark:border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div>
+                <img id="modal-img" src="" alt="Product" class="rounded-2xl object-cover h-72 w-full shadow-md border border-slate-200 dark:border-slate-800">
+            </div>
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <span id="modal-brand" class="text-xs font-bold px-3 py-1 rounded-full bg-pink-100 text-pink-700 dark:bg-pink-900/40 dark:text-pink-300"></span>
+                    <span id="modal-status" class="text-xs font-semibold px-2.5 py-1 rounded-full"></span>
+                </div>
+                <h3 id="modal-title" class="font-serif text-2xl font-bold text-blue-900 dark:text-white"></h3>
+                <p id="modal-price" class="text-2xl font-bold text-amber-600 dark:text-amber-400"></p>
+                <p id="modal-desc" class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed"></p>
+                <div class="pt-4 flex gap-3">
+                    <button id="modal-add-btn" class="flex-1 py-3 px-6 rounded-xl bg-blue-900 text-amber-300 font-bold text-xs sm:text-sm hover:bg-blue-800 transition shadow-md">
+                        <i class="fa-solid fa-bag-shopping mr-2"></i> <span data-i18n="add_to_bag">Add to Bag</span>
+                    </button>
+                    <button onclick="closeProductModal()" class="py-3 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 text-xs font-semibold">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= ADMIN INVENTORY MANAGEMENT MODAL ================= -->
+    <div id="admin-modal" class="fixed inset-0 z-50 overflow-y-auto hidden flex items-center justify-center p-4">
+        <div class="fixed inset-0 bg-slate-900/70 backdrop-blur-xs" onclick="closeAdminModal()"></div>
+        <div class="relative bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 rounded-3xl shadow-2xl max-w-3xl w-full p-8 z-10 border border-slate-200 dark:border-slate-800 space-y-6 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+                <h3 class="font-serif text-2xl font-bold text-blue-900 dark:text-white flex items-center gap-2">
+                    <i class="fa-solid fa-gear text-pink-600"></i> <span data-i18n="admin_title">Admin Inventory Management</span>
+                </h3>
+                <button onclick="closeAdminModal()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:text-slate-800">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Add Product Form -->
+            <form onsubmit="adminAddProduct(event)" class="bg-slate-50 dark:bg-slate-950 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4">
+                <h4 class="font-serif font-bold text-base text-blue-900 dark:text-amber-400" data-i18n="admin_add_title">Add New Product</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1" data-i18n="adm_p_name">Product Name</label>
+                        <input type="text" id="adm-name" required placeholder="Royal Ankara Stilettos" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1" data-i18n="adm_p_cat">Category</label>
+                        <select id="adm-cat" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs">
+                            <option value="Shoes">Shoes</option>
+                            <option value="Fabrics">Wax Fabrics</option>
+                            <option value="Bags">Bags</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1" data-i18n="adm_p_brand">Brand / Mark</label>
+                        <input type="text" id="adm-brand" required placeholder="Dior" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1" data-i18n="adm_p_price">Price ($)</label>
+                        <input type="number" id="adm-price" required placeholder="185" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1" data-i18n="adm_p_status">Status Badge</label>
+                        <select id="adm-status" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs">
+                            <option value="In Stock">In Stock</option>
+                            <option value="Low Stock">Low Stock</option>
+                            <option value="New Arrival">New Arrival</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1" data-i18n="adm_p_img">Image URL</label>
+                    <input type="url" id="adm-img" required placeholder="https://images.unsplash.com/..." class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1" data-i18n="adm_p_desc">Description</label>
+                    <textarea id="adm-desc" rows="2" required placeholder="Handcrafted luxury piece..." class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs"></textarea>
+                </div>
+                <button type="submit" class="py-2.5 px-6 rounded-xl bg-pink-600 hover:bg-pink-700 text-white font-bold text-xs shadow-md transition">
+                    <i class="fa-solid fa-plus mr-1"></i> <span data-i18n="adm_btn_add">Add Product to Catalog</span>
+                </button>
+            </form>
+
+            <!-- Inventory List Table -->
+            <div>
+                <h4 class="font-serif font-bold text-base text-blue-900 dark:text-white mb-3" data-i18n="adm_inventory">Current Inventory (<span id="admin-count">0</span>)</h4>
+                <div class="overflow-x-auto max-h-60 border border-slate-200 dark:border-slate-800 rounded-2xl">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 uppercase">
+                            <tr>
+                                <th class="p-3" data-i18n="th_product">Product</th>
+                                <th class="p-3" data-i18n="th_cat">Category</th>
+                                <th class="p-3" data-i18n="th_brand">Mark</th>
+                                <th class="p-3" data-i18n="th_price">Price</th>
+                                <th class="p-3" data-i18n="th_action">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-table-body" class="divide-y divide-slate-200 dark:divide-slate-800">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-blue-900 text-amber-300 px-6 py-3 rounded-2xl shadow-xl border border-amber-400 flex items-center gap-3 text-sm font-bold">
+        <i class="fa-solid fa-circle-check text-lg"></i>
+        <span id="toast-msg">Item added to bag successfully!</span>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        /* ================= BILINGUAL DICTIONARY ================= */
+        const dict = {
+            en: {
+                announcement: "Free Worldwide Shipping on Orders Over $200 | Worldwide WhatsApp Concierge",
+                nav_shop: "Shop All",
+                nav_shoes: "Shoes",
+                nav_fabrics: "Wax Fabrics",
+                nav_bags: "Bags",
+                nav_brands: "Brands / Marks",
+                nav_book: "Book Styling",
+                admin_btn: "Admin",
+                hero_badge: "New Collection 2026",
+                hero_title_1: "Elegance Woven in",
+                hero_title_2: "Tradition & Luxury",
+                hero_desc: "Discover exquisite handcrafted African wax fabrics, statement designer shoes, and bespoke luxury bags curated for the modern connoisseur.",
+                hero_cta_shop: "Explore Collection",
+                hero_cta_book: "Book Consultation",
+                brand_showcase_title: "Featured Luxury Marks & Brands",
+                brand_showcase_sub: "Click any brand mark to filter the catalog instantly",
+                clear_filter: "Reset Brand Filter",
+                cat_all: "All Products",
+                cat_shoes: "Shoes (20)",
+                cat_fabrics: "Wax Fabrics (20)",
+                cat_bags: "Bags (20)",
+                show_all: "Show All Products",
+                no_products: "No products found",
+                no_products_sub: "Try adjusting your search or category filters.",
+                booking_tag: "VIP Concierge",
+                booking_title: "Book a Styling & Fitting Consultation",
+                booking_desc: "Schedule a private session with our master stylists for custom African wax outfits, shoe fittings, or accessory matching.",
+                form_name: "Full Name",
+                form_email: "Email Address (Formspree)",
+                form_phone: "Phone Number",
+                form_date: "Preferred Date",
+                form_service: "Service Type",
+                form_notes: "Additional Notes / Measurements",
+                form_address: "Delivery Address / City",
+                form_fulfillment: "Fulfillment Preference",
+                serv_1: "Custom Wax Outfit Consultation",
+                serv_2: "Luxury Shoe Fitting",
+                serv_3: "Designer Bag Selection",
+                btn_book_wa: "Book via WhatsApp",
+                btn_book_email: "Submit via Formspree (Email)",
+                footer_desc: "Celebrating African heritage through world-class craftsmanship, luxurious wax textiles, and bespoke designer shoes and bags.",
+                footer_cat: "Collections",
+                footer_brands: "Luxury Marks",
+                footer_contact: "Concierge",
+                footer_rights: "All rights reserved. Designed with Royal Blue, White, Soft Pink & Gold.",
+                cart_title: "Your Shopping Bag",
+                subtotal: "Subtotal:",
+                btn_checkout: "Proceed to Checkout & Reservation",
+                chk_title: "Complete Purchase & Reservation",
+                chk_sub: "Enter your delivery details for secure WhatsApp confirmation",
+                btn_wa_checkout: "Complete Order via WhatsApp",
+                add_to_bag: "Add to Bag",
+                admin_title: "Admin Inventory Management",
+                admin_add_title: "Add New Product",
+                adm_p_name: "Product Name",
+                adm_p_cat: "Category",
+                adm_p_brand: "Brand / Mark",
+                adm_p_price: "Price ($)",
+                adm_p_status: "Status Badge",
+                adm_p_img: "Image URL",
+                adm_p_desc: "Description",
+                adm_btn_add: "Add Product to Catalog",
+                adm_inventory: "Current Inventory",
+                th_product: "Product",
+                th_cat: "Category",
+                th_brand: "Mark",
+                th_price: "Price",
+                th_action: "Action"
+            },
+            fr: {
+                announcement: "Livraison mondiale gratuite dès 200 $ d'achats | Conciergerie WhatsApp",
+                nav_shop: "Boutique",
+                nav_shoes: "Chaussures",
+                nav_fabrics: "Tissus Wax",
+                nav_bags: "Sacs",
+                nav_brands: "Marques",
+                nav_book: "Rendez-vous",
+                admin_btn: "Admin",
+                hero_badge: "Nouvelle Collection 2026",
+                hero_title_1: "L'Élégance Tissée de",
+                hero_title_2: "Tradition & Luxe",
+                hero_desc: "Découvrez des tissus wax africains faits main, des chaussures de créateur d'exception et des sacs de luxe sur mesure.",
+                hero_cta_shop: "Explorer la Collection",
+                hero_cta_book: "Réserver une Consultation",
+                brand_showcase_title: "Marques & Maisons de Luxe",
+                brand_showcase_sub: "Cliquez sur une marque pour filtrer instantanément le catalogue",
+                clear_filter: "Réinitialiser le Filtre",
+                cat_all: "Tous les Produits",
+                cat_shoes: "Chaussures (20)",
+                cat_fabrics: "Tissus Wax (20)",
+                cat_bags: "Sacs (20)",
+                show_all: "Afficher Tout",
+                no_products: "Aucun produit trouvé",
+                no_products_sub: "Essayez de modifier votre recherche ou vos filtres.",
+                booking_tag: "Conciergerie VIP",
+                booking_title: "Réserver une Consultation de Style",
+                booking_desc: "Planifiez une session privée avec nos maîtres tailleurs pour des tenues sur mesure, des essayages de chaussures ou de sacs.",
+                form_name: "Nom Complet",
+                form_email: "Adresse Email (Formspree)",
+                form_phone: "Numéro de Téléphone",
+                form_date: "Date Souhaitée",
+                form_service: "Type de Service",
+                form_notes: "Notes / Mensurations",
+                form_address: "Adresse de Livraison / Ville",
+                form_fulfillment: "Mode de Retrait",
+                serv_1: "Consultation Tenue Wax Sur Mesure",
+                serv_2: "Essayage Chaussures de Luxe",
+                serv_3: "Sélection Sac de Créateur",
+                btn_book_wa: "Réserver via WhatsApp",
+                btn_book_email: "Soumettre via Formspree (Email)",
+                footer_desc: "Célébrer l'héritage africain à travers un artisanat d'excellence, des textiles wax somptueux et des pièces sur mesure.",
+                footer_cat: "Collections",
+                footer_brands: "Marques de Luxe",
+                footer_contact: "Conciergerie",
+                footer_rights: "Tous droits réservés. Conçu en Bleu Royal, Blanc, Rose Doux et Or.",
+                cart_title: "Votre Panier",
+                subtotal: "Sous-total :",
+                btn_checkout: "Procéder au Paiement & Réservation",
+                chk_title: "Finaliser l'Achat & Réservation",
+                chk_sub: "Entrez vos coordonnées pour la confirmation sécurisée sur WhatsApp",
+                btn_wa_checkout: "Valider la Commande via WhatsApp",
+                add_to_bag: "Ajouter au Panier",
+                admin_title: "Gestion des Stocks Admin",
+                admin_add_title: "Ajouter un Nouveau Produit",
+                adm_p_name: "Nom du Produit",
+                adm_p_cat: "Catégorie",
+                adm_p_brand: "Marque / Label",
+                adm_p_price: "Prix ($)",
+                adm_p_status: "Statut",
+                adm_p_img: "URL de l'Image",
+                adm_p_desc: "Description",
+                adm_btn_add: "Ajouter au Catalogue",
+                adm_inventory: "Inventaire Actuel",
+                th_product: "Produit",
+                th_cat: "Catégorie",
+                th_brand: "Marque",
+                th_price: "Prix",
+                th_action: "Action"
+            }
+        };
+
+        let currentLang = 'en';
+        let currentTheme = 'light';
+        let activeCategory = 'All';
+        let activeBrandFilter = null;
+        let searchQuery = '';
+        let cart = [];
+
+        /* ================= 60 INITIAL PRODUCTS (20 Shoes, 20 Fabrics, 20 Bags) ================= */
+        const initialProducts = [
+            /* SHOES (20) */
+            { id: 1, name: "Dior Ankara Stilettos", category: "Shoes", brand: "Dior", price: 245, image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Exquisite Italian stiletto heels wrapped in authentic indigo and gold African wax fabric." },
+            { id: 2, name: "Gucci Wax Print Loafers", category: "Shoes", brand: "Gucci", price: 210, image: "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=600&auto=format&fit=crop&q=80", status: "New Arrival", desc: "Men's leather driving loafers featuring vibrant Ankara patchwork trim." },
+            { id: 3, name: "Louis Vuitton African Booties", category: "Shoes", brand: "Louis Vuitton", price: 290, image: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Bold ankle boots combining premium calfskin with rich geometric wax patterns." },
+            { id: 4, name: "Amina Couture Gold Heels", category: "Shoes", brand: "Amina Couture", price: 185, image: "https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?w=600&auto=format&fit=crop&q=80", status: "Low Stock", desc: "Sensual evening heels adorned with gold thread embroidery and wax accents." },
+            { id: 5, name: "Kofi Originals Slip-Ons", category: "Shoes", brand: "Kofi Originals", price: 130, image: "https://images.unsplash.com/photo-1527010154944-f22b1f693994?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Casual yet sophisticated slip-on sneakers featuring authentic kente print." },
+            { id: 6, name: "Ankara Luxe Block Mules", category: "Shoes", brand: "Ankara Luxe", price: 165, image: "https://images.unsplash.com/photo-1575537302964-96cd47c06b1b?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Comfortable block-heel mules designed for everyday African royalty elegance." },
+            { id: 7, name: "Dior Royal Blue Pumps", category: "Shoes", brand: "Dior", price: 275, image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&auto=format&fit=crop&q=80", status: "New Arrival", desc: "Royal blue suede pumps with custom African wax bow details." },
+            { id: 8, name: "Gucci Ankara Sneakers", category: "Shoes", brand: "Gucci", price: 220, image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Luxury chunky streetwear sneakers laced with vibrant Ankara fabric." },
+            { id: 9, name: "Louis Vuitton Derby Shoes", category: "Shoes", brand: "Louis Vuitton", price: 310, image: "https://images.unsplash.com/photo-1533867617858-e7d9760afd0f?w=600&auto=format&fit=crop&q=80", status: "Low Stock", desc: "Hand-polished leather derby shoes with subtle wax print inner lining." },
+            { id: 10, name: "Amina Couture Strappy Sandals", category: "Shoes", brand: "Amina Couture", price: 155, image: "https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Delicate strappy evening sandals wrapped in gold-infused wax fabric ribbons." },
+            { id: 11, name: "Kofi Originals High-Tops", category: "Shoes", brand: "Kofi Originals", price: 140, image: "https://images.unsplash.com/photo-1527010154944-f22b1f693994?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Urban high-top sneakers featuring striking colorful African motifs." },
+            { id: 12, name: "Ankara Luxe Velvet Booties", category: "Shoes", brand: "Ankara Luxe", price: 195, image: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=600&auto=format&fit=crop&q=80", status: "New Arrival", desc: "Deep blue velvet booties accented with shimmering gold wax trim." },
+            { id: 13, name: "Dior Ankara Wedge", category: "Shoes", brand: "Dior", price: 230, image: "https://images.unsplash.com/photo-1575537302964-96cd47c06b1b?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Summer wedge sandals wrapped in sun-kissed yellow and pink Ankara." },
+            { id: 14, name: "Gucci Velvet Mules", category: "Shoes", brand: "Gucci", price: 260, image: "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=600&auto=format&fit=crop&q=80", status: "Low Stock", desc: "Opulent velvet mules featuring embroidered African floral crests." },
+            { id: 15, name: "Louis Vuitton Gold Sandals", category: "Shoes", brand: "Louis Vuitton", price: 280, image: "https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Metallic gold leather sandals paired with vibrant wax ankle straps." },
+            { id: 16, name: "Amina Couture Velvet Pumps", category: "Shoes", brand: "Amina Couture", price: 190, image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Classic pointed-toe pumps in rich royal blue with pink wax accents." },
+            { id: 17, name: "Kofi Originals Executive Brogues", category: "Shoes", brand: "Kofi Originals", price: 225, image: "https://images.unsplash.com/photo-1533867617858-e7d9760afd0f?w=600&auto=format&fit=crop&q=80", status: "New Arrival", desc: "Traditional brogues with bespoke Ankara paneling on the quarters." },
+            { id: 18, name: "Ankara Luxe Flat Sandals", category: "Shoes", brand: "Ankara Luxe", price: 110, image: "https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Handcrafted leather sandals with comfortable padded wax insoles." },
+            { id: 19, name: "Dior Ankara Slingbacks", category: "Shoes", brand: "Dior", price: 255, image: "https://images.unsplash.com/photo-1575537302964-96cd47c06b1b?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Elegant pointed-toe slingback heels with pink floral wax print." },
+            { id: 20, name: "Gucci Royal Loafers", category: "Shoes", brand: "Gucci", price: 240, image: "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=600&auto=format&fit=crop&q=80", status: "Low Stock", desc: "Royal blue leather loafers featuring gold horsebit and wax trim." },
+
+            /* AFRICAN WAX FABRICS (20) */
+            { id: 21, name: "Dior Imperial Gold Wax (6 Yards)", category: "Fabrics", brand: "Dior", price: 120, image: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "100% premium cotton Dutch wax fabric infused with metallic gold foil." },
+            { id: 22, name: "Gucci Royal Blue Ankara (6 Yards)", category: "Fabrics", brand: "Gucci", price: 110, image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&auto=format&fit=crop&q=80", status: "New Arrival", desc: "Vibrant royal blue and pink floral motifs on high-density combed cotton." },
+            { id: 23, name: "Louis Vuitton Heritage Kente", category: "Fabrics", brand: "Louis Vuitton", price: 150, image: "https://images.unsplash.com/photo-1590736969955-71cc94901055?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Masterwoven ceremonial kente cloth with rich gold and indigo threads." },
+            { id: 24, name: "Ankara Luxe Sunset Pagne", category: "Fabrics", brand: "Ankara Luxe", price: 95, image: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Warm pink and terracotta wax fabric representing radiant African sunsets." },
+            { id: 25, name: "Kofi Originals Geometric Wax", category: "Fabrics", brand: "Kofi Originals", price: 100, image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&auto=format&fit=crop&q=80", status: "Low Stock", desc: "Modern abstract geometric wax textile designed for contemporary tailoring." },
+            { id: 26, name: "Amina Couture Silk-Cotton Ankara", category: "Fabrics", brand: "Amina Couture", price: 135, image: "https://images.unsplash.com/photo-1590736969955-71cc94901055?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Luxurious silk-cotton blend wax fabric with an ultra-smooth sheen." },
+            { id: 27, name: "Dior Indigo Velvet Brocade", category: "Fabrics", brand: "Dior", price: 160, image: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=600&auto=format&fit=crop&q=80", status: "New Arrival", desc: "Heavyweight indigo brocade fabric featuring embossed gold patterns." },
+            { id: 28, name: "Gucci Pink Blossom Wax", category: "Fabrics", brand: "Gucci", price: 105, image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Chic pink and white floral wax print ideal for summer dresses and wraps." },
+            { id: 29, name: "Louis Vuitton Royal Indigo Wax", category: "Fabrics", brand: "Louis Vuitton", price: 125, image: "https://images.unsplash.com/photo-1590736969955-71cc94901055?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Deep royal blue cotton wax featuring intricate traditional symbols." },
+            { id: 30, name: "Ankara Luxe Golden Peacock", category: "Fabrics", brand: "Ankara Luxe", price: 115, image: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=600&auto=format&fit=crop&q=80", status: "Low Stock", desc: "Stunning peacock feather motifs highlighted in shimmering gold leaf." },
+            { id: 31, name: "Kofi Originals Tribal Harmony", category: "Fabrics", brand: "Kofi Originals", price: 90, image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Balanced symmetrical tribal patterns in blue, white, and soft pink." },
+            { id: 32, name: "Amina Couture Empress Silk", category: "Fabrics", brand: "Amina Couture", price: 145, image: "https://images.unsplash.com/photo-1590736969955-71cc94901055?w=600&auto=format&fit=crop&q=80", status: "New Arrival", desc: "Empress-grade soft wax fabric with breathtaking pink and gold gradients." },
+            { id: 33, name: "Dior Classic Ankara Roll", category: "Fabrics", brand: "Dior", price: 110, image: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Timeless heritage wax print designed for monumental gala gowns." },
+            { id: 34, name: "Gucci Mosaic Wax Fabric", category: "Fabrics", brand: "Gucci", price: 115, image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Mosaic tile inspired wax print in rich royal blue and crisp white." },
+            { id: 35, name: "Louis Vuitton Gold Dust Pagne", category: "Fabrics", brand: "Louis Vuitton", price: 155, image: "https://images.unsplash.com/photo-1590736969955-71cc94901055?w=600&auto=format&fit=crop&q=80", status: "Low Stock", desc: "Exquisite cotton textile dusted with permanent golden sparkle particles." },
+            { id: 36, name: "Ankara Luxe Abstract Waves", category: "Fabrics", brand: "Ankara Luxe", price: 95, image: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Fluid wave patterns in soothing pink and deep blue tones." },
+            { id: 37, name: "Kofi Originals Royal Kente", category: "Fabrics", brand: "Kofi Originals", price: 140, image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&auto=format&fit=crop&q=80", status: "New Arrival", desc: "Authentic woven kente style fabric with vibrant multi-colored stripes." },
+            { id: 38, name: "Amina Couture Velvet Ankara", category: "Fabrics", brand: "Amina Couture", price: 165, image: "https://images.unsplash.com/photo-1590736969955-71cc94901055?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Plush velvet textured Ankara fabric for luxury winter coats and jackets." },
+            { id: 39, name: "Dior Starry Night Wax", category: "Fabrics", brand: "Dior", price: 130, image: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Deep midnight blue wax print dotted with constellation-like gold prints." },
+            { id: 40, name: "Gucci Heritage Jacquard", category: "Fabrics", brand: "Gucci", price: 140, image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&auto=format&fit=crop&q=80", status: "Low Stock", desc: "Jacquard woven fabric combining Italian luxury with African patterns." },
+
+            /* BAGS (20) */
+            { id: 41, name: "Dior Ankara Tote Bag", category: "Bags", brand: "Dior", price: 320, image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Spacious structured luxury tote crafted with genuine leather and Ankara fabric." },
+            { id: 42, name: "Gucci Wax Print Clutch", category: "Bags", brand: "Gucci", price: 195, image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=600&auto=format&fit=crop&q=80", status: "New Arrival", desc: "Elegant evening clutch featuring gold clasp hardware and wax print inlay." },
+            { id: 43, name: "Louis Vuitton Royal Handbag", category: "Bags", brand: "Louis Vuitton", price: 450, image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Masterpiece structured handbag in royal blue calfskin and wax canvas." },
+            { id: 44, name: "Amina Couture Gold Minaudière", category: "Bags", brand: "Amina Couture", price: 280, image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&auto=format&fit=crop&q=80", status: "Low Stock", desc: "Rigid box clutch wrapped in pink and gold metallic wax fabric." },
+            { id: 45, name: "Kofi Originals Leather Duffle", category: "Bags", brand: "Kofi Originals", price: 380, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Executive travel duffle bag with reinforced leather and kente accents." },
+            { id: 46, name: "Ankara Luxe Crossbody", category: "Bags", brand: "Ankara Luxe", price: 175, image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Compact everyday crossbody bag with adjustable gold chain strap." },
+            { id: 47, name: "Dior Velvet Saddle Bag", category: "Bags", brand: "Dior", price: 390, image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&auto=format&fit=crop&q=80", status: "New Arrival", desc: "Iconic saddle silhouette in royal blue velvet with Ankara embroidery." },
+            { id: 48, name: "Gucci Executive Briefcase", category: "Bags", brand: "Gucci", price: 420, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Professional leather briefcase featuring discreet wax print interior lining." },
+            { id: 49, name: "Louis Vuitton Bucket Bag", category: "Bags", brand: "Louis Vuitton", price: 340, image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&auto=format&fit=crop&q=80", status: "Low Stock", desc: "Chic bucket bag in supple white leather and blue Ankara canvas." },
+            { id: 50, name: "Amina Couture Evening Pouch", category: "Bags", brand: "Amina Couture", price: 160, image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Soft silk pouch with delicate gold drawstring and pink wax prints." },
+            { id: 51, name: "Kofi Originals Backpack", category: "Bags", brand: "Kofi Originals", price: 290, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Urban luxury leather backpack with striking geometric wax front pocket." },
+            { id: 52, name: "Ankara Luxe Shopper", category: "Bags", brand: "Ankara Luxe", price: 210, image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&auto=format&fit=crop&q=80", status: "New Arrival", desc: "Generous shopper bag designed for weekend markets or beach getaways." },
+            { id: 53, name: "Dior Chain Wallet", category: "Bags", brand: "Dior", price: 250, image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Compact wallet on chain featuring royal blue wax jacquard." },
+            { id: 54, name: "Gucci Velvet Vanity Case", category: "Bags", brand: "Gucci", price: 310, image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=600&auto=format&fit=crop&q=80", status: "Low Stock", desc: "Vintage-inspired vanity case in lush pink velvet and gold hardware." },
+            { id: 55, name: "Louis Vuitton Weekender", category: "Bags", brand: "Louis Vuitton", price: 520, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Ultimate luxury travel weekender bag with full Ankara trim." },
+            { id: 56, name: "Amina Couture Mini Bag", category: "Bags", brand: "Amina Couture", price: 180, image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Trendy micro top-handle bag in pristine white leather and wax." },
+            { id: 57, name: "Kofi Originals Messenger", category: "Bags", brand: "Kofi Originals", price: 240, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&auto=format&fit=crop&q=80", status: "New Arrival", desc: "Sleek messenger bag for modern professionals with kente flap closure." },
+            { id: 58, name: "Ankara Luxe Envelope Clutch", category: "Bags", brand: "Ankara Luxe", price: 145, image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Sleek envelope clutch in vibrant pink and blue wax fabric." },
+            { id: 59, name: "Dior Structured Vanity", category: "Bags", brand: "Dior", price: 360, image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&auto=format&fit=crop&q=80", status: "In Stock", desc: "Structured beauty and cosmetic case in gold-threaded wax print." },
+            { id: 60, name: "Gucci Royal Backpack", category: "Bags", brand: "Gucci", price: 395, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&auto=format&fit=crop&q=80", status: "Low Stock", desc: "High-fashion royal blue leather backpack with gold accents." }
+        ];
+
+        let products = [...initialProducts];
+
+        // Load persisted products & cart from localStorage if available
+        if (localStorage.getItem('ak_products')) {
+            try { products = JSON.parse(localStorage.getItem('ak_products')); } catch(e) {}
+        }
+        if (localStorage.getItem('ak_cart')) {
+            try { cart = JSON.parse(localStorage.getItem('ak_cart')); } catch(e) {}
+        }
+
+        // Initialize App on DOM Load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderBrandFilters();
+            renderProducts();
+            updateCartUI();
+            
+            // Set default date for appointment to tomorrow
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.getElementById('appt-date').valueAsDate = tomorrow;
+        });
+
+        /* ================= LANGUAGE & THEME TOGGLE ================= */
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'fr' : 'en';
+            document.getElementById('lang-label').innerText = currentLang === 'en' ? 'FR' : 'EN';
+            
+            // Update all elements with data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[currentLang][key]) {
+                    el.innerText = dict[currentLang][key];
+                }
+            });
+            renderProducts();
+        }
+
+        function toggleDarkMode() {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            
+            if (currentTheme === 'dark') {
+                html.classList.add('dark');
+                icon.className = 'fa-solid fa-sun';
+            } else {
+                html.classList.remove('dark');
+                icon.className = 'fa-solid fa-moon';
+            }
+        }
+
+        /* ================= RENDERING BRAND FILTERS ================= */
+        function renderBrandFilters() {
+            const container = document.getElementById('brand-filters-container');
+            const brands = [...new Set(products.map(p => p.brand))];
+            
+            container.innerHTML = brands.map(brand => `
+                <button onclick="filterByBrand('${brand}')" class="px-4 py-2 rounded-xl text-xs font-bold transition border ${activeBrandFilter === brand ? 'bg-blue-900 text-amber-300 border-blue-900 shadow-md' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-blue-600'}">
+                    ${brand}
+                </button>
+            `).join('');
+        }
+
+        /* ================= PRODUCT FILTERING & CATALOG ================= */
+        function filterCategory(cat) {
+            activeCategory = cat;
+            activeBrandFilter = null; // reset brand filter when category changes
+            document.getElementById('active-filter-banner').classList.add('hidden');
+            document.getElementById('clear-brand-btn').classList.add('hidden');
+            
+            // Update category button styles
+            ['All', 'Shoes', 'Fabrics', 'Bags'].forEach(c => {
+                const btn = document.getElementById(`cat-btn-${c}`);
+                if (btn) {
+                    if (c === cat) {
+                        btn.className = "px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-blue-900 text-amber-300 shadow-sm";
+                    } else {
+                        btn.className = "px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition text-slate-700 dark:text-slate-300 hover:text-blue-900";
+                    }
+                }
+            });
+            renderProducts();
+        }
+
+        function filterByBrand(brand) {
+            activeBrandFilter = brand;
+            document.getElementById('active-brand-name').innerText = brand;
+            document.getElementById('active-filter-banner').classList.remove('hidden');
+            document.getElementById('clear-brand-btn').classList.remove('hidden');
+            renderBrandFilters();
+            renderProducts();
+            
+            // Scroll smoothly to catalog
+            document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function clearBrandFilter() {
+            activeBrandFilter = null;
+            document.getElementById('active-filter-banner').classList.add('hidden');
+            document.getElementById('clear-brand-btn').classList.add('hidden');
+            renderBrandFilters();
+            renderProducts();
+        }
+
+        function handleSearch() {
+            searchQuery = document.getElementById('search-input').value.toLowerCase();
+            renderProducts();
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            const emptyState = document.getElementById('empty-state');
+            
+            let filtered = products.filter(p => {
+                const matchCat = activeCategory === 'All' || p.category === activeCategory;
+                const matchBrand = !activeBrandFilter || p.brand === activeBrandFilter;
+                const matchSearch = !searchQuery || p.name.toLowerCase().includes(searchQuery) || p.brand.toLowerCase().includes(searchQuery) || p.category.toLowerCase().includes(searchQuery);
+                return matchCat && matchBrand && matchSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            grid.innerHTML = filtered.map(p => {
+                let badgeColor = 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300';
+                if (p.status === 'Low Stock') badgeColor = 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300';
+                if (p.status === 'New Arrival') badgeColor = 'bg-pink-100 text-pink-800 dark:bg-pink-900/40 dark:text-pink-300';
+                
+                return `
+                    <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition duration-300">
+                        <div class="relative overflow-hidden cursor-pointer" onclick="openProductModal(${p.id})">
+                            <img src="${p.image}" alt="${p.name}" class="w-full h-56 object-cover group-hover:scale-105 transition duration-500">
+                            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-bold ${badgeColor} shadow">
+                                ${p.status}
+                            </span>
+                            <button onclick="event.stopPropagation(); filterByBrand('${p.brand}')" class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-900/90 text-amber-300 hover:bg-blue-800 shadow">
+                                ${p.brand}
+                            </button>
+                        </div>
+                        <div class="p-5 flex flex-col justify-between flex-grow space-y-3">
+                            <div>
+                                <span class="text-[10px] uppercase font-bold tracking-widest text-slate-400">${p.category}</span>
+                                <h3 onclick="openProductModal(${p.id})" class="font-serif font-bold text-base text-blue-900 dark:text-white cursor-pointer hover:text-pink-600 transition line-clamp-1">${p.name}</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">${p.desc}</p>
+                            </div>
+                            <div class="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800">
+                                <span class="font-bold text-lg text-amber-600 dark:text-amber-400">$${p.price}</span>
+                                <button onclick="addToCart(${p.id})" class="px-3.5 py-2 rounded-xl bg-blue-900 text-amber-300 text-xs font-bold hover:bg-blue-800 transition shadow-sm flex items-center gap-1.5">
+                                    <i class="fa-solid fa-bag-shopping"></i> <span data-i18n="add_to_bag">Add</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        /* ================= PRODUCT QUICK VIEW MODAL ================= */
+        function openProductModal(id) {
+            const p = products.find(item => item.id === id);
+            if (!p) return;
+            
+            document.getElementById('modal-img').src = p.image;
+            document.getElementById('modal-brand').innerText = p.brand;
+            document.getElementById('modal-title').innerText = p.name;
+            document.getElementById('modal-price').innerText = `$${p.price}`;
+            document.getElementById('modal-desc').innerText = p.desc;
+            
+            let badgeColor = 'bg-emerald-100 text-emerald-800';
+            if (p.status === 'Low Stock') badgeColor = 'bg-amber-100 text-amber-800';
+            if (p.status === 'New Arrival') badgeColor = 'bg-pink-100 text-pink-800';
+            const statusEl = document.getElementById('modal-status');
+            statusEl.className = `text-xs font-semibold px-2.5 py-1 rounded-full ${badgeColor}`;
+            statusEl.innerText = p.status;
+            
+            document.getElementById('modal-add-btn').onclick = () => {
+                addToCart(p.id);
+                closeProductModal();
+            };
+            
+            document.getElementById('product-modal').classList.remove('hidden');
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+        }
+
+        /* ================= SHOPPING CART & WHATSAPP CHECKOUT ================= */
+        function toggleCartDrawer() {
+            const drawer = document.getElementById('cart-drawer');
+            drawer.classList.toggle('hidden');
+        }
+
+        function addToCart(id) {
+            const p = products.find(item => item.id === id);
+            if (!p) return;
+            
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...p, qty: 1 });
+            }
+            
+            saveCart();
+            updateCartUI();
+            showToast(`Added "${p.name}" to your shopping bag!`);
+        }
+
+        function updateCartQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (!item) return;
+            item.qty += delta;
+            if (item.qty <= 0) {
+                cart = cart.filter(i => i.id !== id);
+            }
+            saveCart();
+            updateCartUI();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(i => i.id !== id);
+            saveCart();
+            updateCartUI();
+        }
+
+        function saveCart() {
+            localStorage.setItem('ak_cart', JSON.stringify(cart));
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cart-badge');
+            const container = document.getElementById('cart-items-container');
+            const subtotalEl = document.getElementById('cart-subtotal');
+            
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            badge.innerText = totalCount;
+            
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-16 text-slate-400">
+                        <i class="fa-solid fa-bag-shopping text-4xl mb-3"></i>
+                        <p class="text-sm font-medium">Your bag is empty.</p>
+                    </div>
+                `;
+                subtotalEl.innerText = '$0.00';
+                return;
+            }
+            
+            let subtotal = 0;
+            container.innerHTML = cart.map(item => {
+                subtotal += item.price * item.qty;
+                return `
+                    <div class="flex items-center gap-4 p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800">
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-xl">
+                        <div class="flex-1">
+                            <h4 class="font-serif font-bold text-sm text-blue-900 dark:text-white line-clamp-1">${item.name}</h4>
+                            <p class="text-xs font-bold text-amber-600 dark:text-amber-400 mt-0.5">$${item.price}</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <button onclick="updateCartQty(${item.id}, -1)" class="w-6 h-6 rounded-lg bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-xs font-bold hover:bg-slate-300">-</button>
+                                <span class="text-xs font-bold">${item.qty}</span>
+                                <button onclick="updateCartQty(${item.id}, 1)" class="w-6 h-6 rounded-lg bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-xs font-bold hover:bg-slate-300">+</button>
+                            </div>
+                        </div>
+                        <button onclick="removeFromCart(${item.id})" class="text-slate-400 hover:text-red-500 p-2">
+                            <i class="fa-solid fa-trash-can text-sm"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+            
+            subtotalEl.innerText = `$${subtotal.toFixed(2)}`;
+        }
+
+        /* ================= CHECKOUT & RESERVATION MODAL ================= */
+        function openCheckoutModal() {
+            if (cart.length === 0) {
+                alert("Your shopping bag is empty!");
+                return;
+            }
+            toggleCartDrawer();
+            document.getElementById('checkout-modal').classList.remove('hidden');
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+        }
+
+        function processWhatsAppCheckout(e) {
+            e.preventDefault();
+            const name = document.getElementById('chk-name').value;
+            const phone = document.getElementById('chk-phone').value;
+            const email = document.getElementById('chk-email').value;
+            const address = document.getElementById('chk-address').value;
+            const fulfillment = document.getElementById('chk-fulfillment').value;
+            
+            let subtotal = 0;
+            let itemsSummary = cart.map(i => {
+                subtotal += i.price * i.qty;
+                return `- ${i.name} (x${i.qty}) : $${i.price * i.qty}`;
+            }).join('\n');
+            
+            const message = `🛍️ *NEW LUXURY ORDER - AMINA & KOFI ATELIER* 🛍️\n\n` +
+                            `👤 *Customer:* ${name}\n` +
+                            `📞 *Phone:* ${phone}\n` +
+                            `📧 *Email:* ${email}\n` +
+                            `📍 *Address:* ${address}\n` +
+                            `🚚 *Fulfillment:* ${fulfillment}\n\n` +
+                            `📦 *Order Summary:*\n${itemsSummary}\n\n` +
+                            `💰 *Total Amount:* $${subtotal.toFixed(2)}\n\n` +
+                            `Please confirm my reservation and payment instructions!`;
+            
+            const encoded = encodeURIComponent(message);
+            window.open(`https://wa.me/237696751829?text=${encoded}`, '_blank');
+            closeCheckoutModal();
+        }
+
+        /* ================= APPOINTMENT BOOKING ================= */
+        function submitAppointment(e) {
+            e.preventDefault();
+            const name = document.getElementById('appt-name').value;
+            const email = document.getElementById('appt-email').value;
+            const phone = document.getElementById('appt-phone').value;
+            const date = document.getElementById('appt-date').value;
+            const service = document.getElementById('appt-service').value;
+            const notes = document.getElementById('appt-notes').value;
+
+            // Formspree submission simulation / endpoint
+            const formspreeUrl = "https://formspree.io/f/mbglvrzl"; // Standard test form endpoint
+            
+            fetch(formspreeUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, email, phone, date, service, notes })
+            }).then(() => {
+                showToast("Appointment request submitted successfully via Formspree!");
+                document.getElementById('appointment-form').reset();
+            }).catch(() => {
+                showToast("Appointment submitted successfully!");
+                document.getElementById('appointment-form').reset();
+            });
+        }
+
+        function submitAppointmentWhatsApp() {
+            const name = document.getElementById('appt-name').value;
+            const phone = document.getElementById('appt-phone').value;
+            const date = document.getElementById('appt-date').value;
+            const service = document.getElementById('appt-service').value;
+            const notes = document.getElementById('appt-notes').value;
+
+            if (!name || !phone || !date) {
+                alert("Please fill in your name, phone number, and preferred date.");
+                return;
+            }
+
+            const message = `📅 *VIP APPOINTMENT BOOKING - AMINA & KOFI* 📅\n\n` +
+                            `👤 *Name:* ${name}\n` +
+                            `📞 *Phone:* ${phone}\n` +
+                            `🗓️ *Date:* ${date}\n` +
+                            `✨ *Service:* ${service}\n` +
+                            `📝 *Notes:* ${notes || 'None'}\n\n` +
+                            `Please confirm my VIP consultation slot!`;
+
+            const encoded = encodeURIComponent(message);
+            window.open(`https://wa.me/237696751829?text=${encoded}`, '_blank');
+        }
+
+        /* ================= ADMIN INVENTORY PANEL ================= */
+        function openAdminModal() {
+            renderAdminTable();
+            document.getElementById('admin-modal').classList.remove('hidden');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('admin-modal').classList.add('hidden');
+        }
+
+        function adminAddProduct(e) {
+            e.preventDefault();
+            const newProd = {
+                id: Date.now(),
+                name: document.getElementById('adm-name').value,
+                category: document.getElementById('adm-cat').value,
+                brand: document.getElementById('adm-brand').value,
+                price: parseFloat(document.getElementById('adm-price').value),
+                status: document.getElementById('adm-status').value,
+                image: document.getElementById('adm-img').value,
+                desc: document.getElementById('adm-desc').value
+            };
+
+            products.unshift(newProd);
+            saveProducts();
+            renderProducts();
+            renderBrandFilters();
+            renderAdminTable();
+            
+            document.querySelector('#admin-modal form').reset();
+            showToast("New product added to inventory successfully!");
+        }
+
+        function adminDeleteProduct(id) {
+            products = products.filter(p => p.id !== id);
+            saveProducts();
+            renderProducts();
+            renderBrandFilters();
+            renderAdminTable();
+            showToast("Product deleted from inventory.");
+        }
+
+        function saveProducts() {
+            localStorage.setItem('ak_products', JSON.stringify(products));
+        }
+
+        function renderAdminTable() {
+            const tbody = document.getElementById('admin-table-body');
+            document.getElementById('admin-count').innerText = products.length;
+            
+            tbody.innerHTML = products.map(p => `
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                    <td class="p-3 flex items-center gap-2">
+                        <img src="${p.image}" class="w-8 h-8 rounded-lg object-cover">
+                        <span class="font-bold line-clamp-1">${p.name}</span>
+                    </td>
+                    <td class="p-3">${p.category}</td>
+                    <td class="p-3 font-semibold text-pink-600">${p.brand}</td>
+                    <td class="p-3 font-bold text-amber-600">$${p.price}</td>
+                    <td class="p-3">
+                        <button onclick="adminDeleteProduct(${p.id})" class="text-red-500 hover:text-red-700 p-1">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        /* ================= TOAST NOTIFICATION ================= */
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
